@@ -1,6 +1,6 @@
-name: Build Karya Desktop App
+name: Build Worker Desktop Application
 
-on: ["workflow_call", "workflow_dispatch"]
+on: ["workflow_call"]
 
 jobs:
   release:
