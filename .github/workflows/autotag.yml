@@ -1,7 +1,7 @@
 name: Create New Release
 on: ["workflow_dispatch"]
 jobs:
-  build:
+  tag-and-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,5 +23,12 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-  call-workflow-passing-data:
+          draft: true
+  build:
+    needs: tag-and-release
     uses: karya-inc/worker-desktop-release/.github/workflows/build-release.yml@main
+    with:
+      release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    secrets:
+      repo_token: $${{ secrets.GITHUB_TOKEN }}
+      src_token: ${{ secrets.KARYA_SERVER_TOKEN }}

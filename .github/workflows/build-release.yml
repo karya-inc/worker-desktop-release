@@ -1,6 +1,16 @@
 name: Build Worker Desktop Application
 
-on: ["workflow_call"]
+on:
+  workflow_call:
+    inputs:
+      release:
+        required: true
+        type: boolean
+    secrets:
+      repo_token:
+        required: true
+      src_token:
+        required: true
 
 jobs:
   release:
@@ -15,7 +25,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: karya-inc/karya-server
-          token: ${{ secrets.karya_server_token }}
+          token: ${{ secrets.src_token }}
           ref: "v5-dev"
 
       - name: Setup Nodejs
@@ -46,10 +56,10 @@ jobs:
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
+          github_token: ${{ secrets.repo_token }}
 
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+          release: ${{ inputs.release }}
 
           package_root: "./server/worker-web/"
