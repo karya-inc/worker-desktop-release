@@ -30,5 +30,4 @@ jobs:
     with:
       release: ${{ startsWith(github.ref, 'refs/tags/v') }}
     secrets:
-      repo_token: $${{ secrets.GITHUB_TOKEN }}
       src_token: ${{ secrets.KARYA_SERVER_TOKEN }}
