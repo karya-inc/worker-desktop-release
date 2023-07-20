@@ -6,8 +6,8 @@ on:
         description: "Automatically bump tag version"
         default: false
         type: boolean
-      new-release:
-        description: "Create a new draft release for the latest tag"
+      overwrite-existing:
+        description: "Overwrite existing release for the latest tag if exists"
         default: false
         type: boolean
 jobs:
@@ -30,11 +30,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
-        if: ${{ inputs.new-release }}
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
+          removeArtifacts: ${{ overwrite-existing }}
           draft: true
   build:
     needs: tag-and-release
