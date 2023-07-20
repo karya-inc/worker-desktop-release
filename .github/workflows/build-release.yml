@@ -43,14 +43,6 @@ jobs:
         working-directory: ./server
         run: npx lerna run build
 
-      - name: Bootstrap Application
-        working-directory: ./server/worker-web
-        run: npm ci
-
-      - name: Build Application
-        working-directory: ./server/worker-web
-        run: npm run build
-
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
