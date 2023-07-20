@@ -1,6 +1,8 @@
 name: Build Karya Desktop App
 uses: samuelmeuli/action-electron-builder@v1.6.0
 
+on: workflow_dispatch
+
 jobs:
   release:
     runs-on: ${{ matrix.os }}
