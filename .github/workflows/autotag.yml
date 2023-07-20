@@ -1,5 +1,15 @@
 name: Create New Release
-on: ["workflow_dispatch"]
+on:
+  workflow_dispatch:
+    inputs:
+      autotag:
+        description: "Automatically bump tag version"
+        default: false
+        type: boolean
+      new-release:
+        description: "Create a new draft release for the latest tag"
+        default: false
+        type: boolean
 jobs:
   tag-and-release:
     runs-on: ubuntu-latest
@@ -15,10 +25,12 @@ jobs:
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
+        if: ${{ inputs.autotag }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
+        if: ${{ inputs.new-release }}
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
