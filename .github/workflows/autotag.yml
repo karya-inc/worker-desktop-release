@@ -17,6 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create empty commit
         uses: velocibear/create-empty-commit@v1.0.0
+        if: ${{ inputs.autotag }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           email: soumyaranjan1812@gmail.com
@@ -30,7 +31,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
-        if: ${{ inputs.autotag }}
         with:
           tag: ${{ inputs.autotag && steps.tag_version.outputs.new_tag || github.ref }}}}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
