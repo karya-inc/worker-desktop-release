@@ -54,6 +54,10 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/*/package-lock.json"
 
+      - name: Log package.json
+        working-directory:  ./server/worker-web
+        run: cat package.json
+
       - name: Bootstrap monolith
         working-directory: ./server
         run: npm ci
