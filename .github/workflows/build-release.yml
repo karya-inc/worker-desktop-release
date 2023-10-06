@@ -28,7 +28,7 @@ jobs:
         if: ${{ inputs.variant == 'development' }}
         with:
           repository: karya-inc/karya-server
-          token: ${{ secrets.src_token }}
+          token: ${{ secrets.KARYA_SERVER_TOKEN }}
           ref: "v5-dev"
 
       - name: Check out karya-server repo to v5-main
@@ -36,7 +36,7 @@ jobs:
         if: ${{ inputs.variant == 'main' || inputs.variant == 'demo' }}
         with:
           repository: karya-inc/karya-server
-          token: ${{ secrets.src_token }}
+          token: ${{ secrets.KARYA_SERVER_TOKEN }}
           ref: "v5-main"
 
       - name: Check out karya-server repo to v5-test
@@ -44,7 +44,7 @@ jobs:
         if: ${{ inputs.variant == 'testing' }}
         with:
           repository: karya-inc/karya-server
-          token: ${{ secrets.src_token }}
+          token: ${{ secrets.KARYA_SERVER_TOKEN }}
           ref: "v5-test"
 
       - name: Setup Nodejs
