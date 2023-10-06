@@ -62,9 +62,6 @@ jobs:
         working-directory: ./server
         run: npx lerna run build --scope=@karya/core --scope=@karya/parameter-specs
 
-      - name: Print variant from env
-        run: echo $VARIANT
-
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
