@@ -55,7 +55,7 @@ jobs:
           cache-dependency-path: "**/*/package-lock.json"
 
       - name: Log package.json
-        working-directory: ./server/worker-web
+        working-directory:  ./server/worker-web
         run: cat package.json
 
       - name: Bootstrap monolith
@@ -78,5 +78,3 @@ jobs:
           release: true
 
           package_root: "./server/worker-web/"
-
-          args: --c.publish.channel=${{ env.VARIANT }}
