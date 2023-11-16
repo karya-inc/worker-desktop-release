@@ -8,7 +8,7 @@ on:
         type: choice
         options:
           - "development"
-          - "testing"
+          - "test"
           - "demo"
           - "main"
 env:
@@ -41,7 +41,7 @@ jobs:
 
       - name: Check out karya-server repo to v5-test
         uses: actions/checkout@master
-        if: ${{ inputs.variant == 'testing' }}
+        if: ${{ inputs.variant == 'test' }}
         with:
           repository: karya-inc/karya-server
           token: ${{ secrets.KARYA_SERVER_TOKEN }}
@@ -55,7 +55,7 @@ jobs:
           cache-dependency-path: "**/*/package-lock.json"
 
       - name: Log package.json
-        working-directory:  ./server/worker-web
+        working-directory: ./server/worker-web
         run: cat package.json
 
       - name: Bootstrap monolith
