@@ -13,6 +13,8 @@ on:
           - "main"
 env:
   VARIANT: ${{ inputs.variant }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
 
 jobs:
   release:
