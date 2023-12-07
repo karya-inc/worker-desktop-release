@@ -21,7 +21,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Check out karya-server repo to v5-dev
@@ -54,6 +54,16 @@ jobs:
           node-version-file: "./server/.nvmrc"
           cache: "npm"
           cache-dependency-path: "**/*/package-lock.json"
+
+      - name: Use Python 11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+        env:
+          PYTHON_VERSION: "3.11"
+
+      - name: Install python deps
+        run: python3 -m pip install packaging
 
       - name: Log package.json
         working-directory: ./server/worker-web
