@@ -40,7 +40,6 @@ jobs:
           token: ${{ secrets.KARYA_SERVER_TOKEN }}
           ref: "v5-main"
 
-
       - name: Check out karya-server repo to v5-test
         uses: actions/checkout@master
         if: ${{ inputs.variant == 'test' }}
@@ -56,9 +55,8 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/*/package-lock.json"
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
+      - name: Install python deps
+        run: python3 -m pip install packaging
 
       - name: Log package.json
         working-directory: ./server/worker-web
