@@ -15,7 +15,6 @@ env:
   VARIANT: ${{ inputs.variant }}
   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
-
 jobs:
   release:
     runs-on: ${{ matrix.os }}
@@ -41,6 +40,7 @@ jobs:
           token: ${{ secrets.KARYA_SERVER_TOKEN }}
           ref: "v5-main"
 
+
       - name: Check out karya-server repo to v5-test
         uses: actions/checkout@master
         if: ${{ inputs.variant == 'test' }}
@@ -55,6 +55,10 @@ jobs:
           node-version-file: "./server/.nvmrc"
           cache: "npm"
           cache-dependency-path: "**/*/package-lock.json"
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
 
       - name: Log package.json
         working-directory: ./server/worker-web
